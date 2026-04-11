@@ -1,11 +1,164 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import TopBar from "../components/TopBar.astro";
+import Footer from "../components/Footer.astro";
+import { heroContent, statsContent, guestbookContent } from "../content/home";
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Custom fonts and Material Symbols for this page -->
+  <link
+    slot="head"
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    slot="head"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+
+  <style slot="head">
+    .material-symbols-outlined {
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+    .asymmetric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 4rem;
+    }
+    @media (max-width: 768px) {
+      .asymmetric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .bubble-float {
+      box-shadow: 0 20px 40px rgba(93, 99, 33, 0.06);
+    }
+  </style>
+
+  <div
+    class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen"
+  >
+    <!-- TopAppBar -->
+    <TopBar />
+    <main class="pt-32 px-8 max-w-7xl mx-auto space-y-32">
+      <!-- Hero Section: Manifesto -->
+      <section class="asymmetric-grid items-center">
+        <div class="space-y-8">
+          <div
+            class="inline-block px-4 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label text-xs tracking-widest uppercase"
+          >
+            {heroContent.tagline}
+          </div>
+          <h1
+            class="font-headline text-5xl md:text-7xl font-extrabold leading-[1.1] text-primary tracking-tighter"
+            set:html={heroContent.headline}
+          />
+          <div
+            class="space-y-6 text-lg md:text-xl text-on-surface-variant max-w-lg italic leading-relaxed"
+          >
+            <p>
+              {heroContent.descriptionEn}
+            </p>
+            <p class="font-normal not-italic opacity-80">
+              {heroContent.descriptionZh}
+            </p>
+          </div>
+        </div>
+        <div class="relative group">
+          <div
+            class="absolute -inset-4 bg-primary-container/20 rounded-xl -rotate-2 group-hover:rotate-0 transition-transform duration-500"
+          >
+          </div>
+          <img
+            alt={heroContent.imageAlt}
+            class="relative rounded-xl w-full aspect-4/5 object-cover grayscale-20 brightness-105 shadow-2xl"
+            data-alt={heroContent.imageDataAlt}
+            src={heroContent.imageUrl}
+          />
+        </div>
+      </section>
+      <!-- Milestones & Stats -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
+        <div class="space-y-4">
+          <span
+            class="font-label text-xs tracking-[0.2em] text-outline uppercase"
+            >{statsContent.milestoneTag}</span
+          >
+          <div class="text-4xl font-headline font-bold text-primary">
+            {statsContent.milestoneDate}
+          </div>
+          <p class="text-on-surface-variant leading-relaxed">
+            {statsContent.milestoneDescEn}
+          </p>
+          <p class="text-sm opacity-60">
+            {statsContent.milestoneDescZh}
+          </p>
+        </div>
+        <div
+          class="md:col-span-2 bg-surface-container-low rounded-xl p-12 relative overflow-hidden"
+        >
+          <div class="absolute top-0 right-0 p-8">
+            <span
+              class="material-symbols-outlined text-primary/10 text-8xl"
+              style="font-variation-settings: 'FILL' 1;">rotate_right</span
+            >
+          </div>
+          <div class="relative z-10 space-y-6">
+            <h3 class="font-headline text-2xl font-bold">{statsContent.statsTitle}</h3>
+            <div class="flex flex-wrap gap-8">
+              {statsContent.stats.map((stat, i) => (
+                <>
+                  <div>
+                    <div class="text-3xl font-headline font-bold">{stat.value}</div>
+                    <div class="font-label text-xs text-outline">
+                      {stat.label}
+                    </div>
+                  </div>
+                  {i < statsContent.stats.length - 1 && (
+                    <div class="w-px h-12 bg-outline-variant/30 hidden md:block" />
+                  )}
+                </>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Guestbook / Bubble Messages -->
+      <section class="space-y-12 pb-20">
+        <div class="text-center space-y-4">
+          <h2
+            class="font-headline text-4xl font-extrabold text-secondary tracking-tight"
+          >
+            {guestbookContent.title}
+          </h2>
+          <p class="text-on-surface-variant italic">
+            {guestbookContent.subtitle}
+          </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
+          {guestbookContent.messages.map(msg => (
+            <div
+              class={`${msg.bubbleBaseClass} bubble-float p-8 rounded-full max-w-sm border border-outline-variant/10 ${msg.containerMargin}`}
+            >
+              <p class={`text-on-surface leading-relaxed ${msg.isItalic ? 'italic' : ''}`}>
+                {msg.text}
+              </p>
+              <div class="mt-4 flex items-center gap-3">
+                <div class={`w-8 h-8 rounded-full ${msg.avatarClass}`}></div>
+                <span class="font-label text-xs font-bold">{msg.author}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <Footer />
+  </div>
 </Layout>

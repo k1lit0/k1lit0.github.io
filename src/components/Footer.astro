@@ -1,0 +1,24 @@
+---
+import { siteConfig } from "../content/home";
+---
+
+<footer class="w-full py-12 mt-20 bg-[#f9faf4] tonal-transition bg-stone-100/30 border-t border-stone-200/20">
+  <div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto gap-8">
+    <div class="font-['Plus_Jakarta_Sans'] font-bold text-stone-800 text-xl tracking-tight">
+      {siteConfig.footerTitle}
+    </div>
+    <div class="font-['Noto_Serif'] italic text-sm text-stone-500 text-center md:text-left">
+      {siteConfig.copyright}
+    </div>
+    <div class="flex gap-8">
+      {siteConfig.footerLinks.map((link) => (
+        <a
+          class="text-stone-400 hover:text-stone-600 transition-opacity font-['Noto_Serif'] italic text-sm"
+          href={link.href}
+        >
+          {link.text}
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>

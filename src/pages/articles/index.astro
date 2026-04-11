@@ -1,0 +1,53 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TopBar from "../../components/TopBar.astro";
+
+// 定义文章的类型接口
+interface Frontmatter {
+  title: string;
+  date: string;
+}
+interface Post {
+  file: string;
+  frontmatter: Frontmatter;
+}
+
+// 在当前页面提前获取所有的 md 内容 (使用 import.meta.glob)
+const allPosts = Object.values(import.meta.glob('../../blog/*.md', { eager: true })) as Post[];
+
+// 提取标题和日期，按时间降序
+const sortedPosts = allPosts.sort((a, b) => {
+  return new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf();
+});
+---
+
+<Layout>
+  <TopBar />
+  <main class="min-h-screen bg-background pt-32 pb-16 px-8 flex justify-center">
+    <div class="max-w-3xl w-full">
+      <h1 class="text-4xl font-headline font-bold text-on-surface mb-12">Articles</h1>
+      <ul class="space-y-6">
+        {sortedPosts.map((post) => {
+          // 由于 md 位于 src/blog，取文件名作为slug
+          const fileName = post.file.split(/[\\/]/).pop();
+          const slug = fileName ? fileName.split('.')[0] : '';
+          
+          return (
+            <li>
+              <a href={`/articles/${slug}`} data-astro-prefetch class="block group p-6 rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all hover:shadow-[0_4px_24px_rgba(0,0,0,0.04)]">
+                <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2">
+                  <h2 class="text-2xl font-headline font-bold text-on-surface group-hover:text-primary transition-colors">
+                    {post.frontmatter.title}
+                  </h2>
+                  <time class="text-sm font-label text-outline whitespace-nowrap">
+                    {post.frontmatter.date}
+                  </time>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </main>
+</Layout>
