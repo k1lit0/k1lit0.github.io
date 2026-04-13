@@ -3,7 +3,7 @@ import "../styles/global.css";
 import { ClientRouter,fade } from "astro:transitions";
 ---
 <!doctype html>
-<html lang="en">
+<html lang="zh" class="w-[calc(100vw-20px)">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -13,17 +13,34 @@ import { ClientRouter,fade } from "astro:transitions";
 		<title>yu的小破站</title>
 		<slot name="head" />
 		<ClientRouter />
+		<script is:inline>
+			const initTheme = () => {
+				const theme = (() => {
+					if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+						return localStorage.getItem('theme');
+					}
+					if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+						return 'dark';
+					}
+					return 'light';
+				})();
+				
+				if (theme === 'dark') {
+					document.documentElement.classList.add('dark');
+				} else {
+					document.documentElement.classList.remove('dark');
+				}
+				window.localStorage.setItem('theme', theme);
+			};
+
+			// Initialize on first load
+			initTheme();
+			
+			// Re-initialize after view transitions (astro:after-swap happens before the new page is displayed)
+			document.addEventListener('astro:after-swap', initTheme);
+		</script>
 	</head>
-	<body transition:animate={fade({ duration: '0.2s' })}>
+	<body class="flex flex-col items-center bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen" transition:animate={fade({ duration: '0.2s' })}>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

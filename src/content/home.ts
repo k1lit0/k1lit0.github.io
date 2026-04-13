@@ -1,7 +1,7 @@
 export const siteConfig = {
   navTitle: "YU的游泳池",
   footerTitle: "Fat Fish's Swimming Pool",
-  copyright: "© 2024 Fat Fish's Swimming Pool. Aerated Editorial.",
+  copyright: "© 2026 Fat Fish's Swimming Pool. Aerated Editorial.",
   navLinks: [
     { text: "Home", href: "/" },
     { text: "Articles", href: "/articles" },
@@ -31,8 +31,11 @@ export const statsContent = {
   statsTitle: "最 近 状 态",
   stats: [
     { value: "0", label: "已经臭了 /天" },
+    { value: "ENFP", label: "本人MBTI" },
     { value: "0417", label: "生日" },
     { value: "APEX", label: "最近在玩" },
+    { value: "老人と海", label: "最近在听" },
+
   ]
 };
 
