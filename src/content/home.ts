@@ -8,9 +8,8 @@ export const siteConfig = {
     { text: "Projects", href: "/projects" },
   ],
   footerLinks: [
-    { text: "Bilibili", href: "#" },
-    { text: "Github", href: "#" },
-    { text: "Privacy", href: "#" },
+    { text: "Bilibili", href: "https://space.bilibili.com/3493090687977985" },
+    { text: "Github", href: "https://github.com/k1lit0" },
   ]
 };
 
@@ -19,16 +18,16 @@ export const heroContent = {
   headline: "Keep Swimming <br /> the pool.",
   descriptionEn: `"A pond fish does not resent the smallness of the pond—what it resents is forgetting how to stir waves within inches."`,
   descriptionZh: "「池鱼不恨池小——恨的是忘了怎么在方寸之间掀起波澜。」",
-  imageUrl: "mouse.jpg",
+  imageUrl: "/mouse.jpg",
   imageAlt: "my face",
-  imageDataAlt: "Close-up of smooth river stones and raked sand in a Japanese zen garden with soft side lighting and warm lime-tinted shadows"
+  imageDataAlt: "躲在角落的阴暗鼠鼠也有凌云壮志，虽然它的梦想可能只是把水搅浑一点点。"
 };
 
 export const statsContent = {
-  milestoneTag: "Next Milestone",
+  milestoneTag: "期待生活中的浪漫",
   milestoneDate: "鱼传尺素",
-  milestoneDescEn: "The Great Autumn Migration: A 100km journey through the editorial landscape.",
-  milestoneDescZh: "大秋季迁徙：一场穿越社论景观的百公里旅程。",
+  milestoneDescEn: "Fish deliver the letter — a message folded into a fish’s belly, swimming across mountains and rivers, until it slips into your dream and quietly unfolds an entire galaxy.",
+  milestoneDescZh: "鱼传尺素，就是把思念折进鱼的腹中，任它游过千山万水，直到游进你的梦里，悄悄展开一整片星河",
   statsTitle: "最 近 状 态",
   stats: [
     { value: "0", label: "已经臭了 /天" },
@@ -79,7 +78,7 @@ export const projectsContent = {
   title: "Projects",
   subtitle: "Things I've built",
   projects: [
-    { title: "My Site", description: "A personal blog built with Astro & TailwindCSS v4.", github: "https://github.com/my-site" },
-    { title: "Project Omega", description: "An experimental AI tool container.", github: "https://github.com/omega" }
+    { title: "My Site", description: "A personal blog built with Astro & TailwindCSS v4.", github: "#" },
+    { title: "Project Omega", description: "An experimental AI tool container.", github: "#" }
   ]
 };

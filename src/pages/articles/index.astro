@@ -40,7 +40,7 @@ const sortedPosts = allPosts.sort((a, b) => {
                     {post.frontmatter.title}
                   </h2>
                   <time class="text-sm font-label text-outline whitespace-nowrap">
-                    {post.frontmatter.date}
+                    { new Date(post.frontmatter.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) }
                   </time>
                 </div>
               </a>
